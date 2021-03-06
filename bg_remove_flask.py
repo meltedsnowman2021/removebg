@@ -21,12 +21,12 @@ output_path = '.\\output\\test.rmbg.png'
 def remove_bg():
     if request.method == "POST":
         file = request.files["file"]
-        file.save(file.filename)
+        file.save("input\\" + file.filename)
         file = np.fromfile(file.filename)
         result = remove(file)
         output = 'image-' + str(int(time.time())) + '.png' # Must be a .png
         img = Image.open(io.BytesIO(result)).convert("RGBA")
-        img.save(output)
+        img.save("output\\" + output)
         return "file_uploaded"
     return """<!doctype html>
         <title>Upload new File</title>
