@@ -7,6 +7,7 @@ from PIL import Image
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 import time
+import os
 
 app = Flask(__name__)
 
@@ -21,12 +22,14 @@ output_path = '.\\output\\test.rmbg.png'
 def remove_bg():
     if request.method == "POST":
         file = request.files["file"]
-        file.save("input\\" + file.filename)
+        input_path = os.path.join("input", file.filename)
+        file.save(input_path)
         file = np.fromfile(file.filename)
         result = remove(file)
         output = 'image-' + str(int(time.time())) + '.png' # Must be a .png
         img = Image.open(io.BytesIO(result)).convert("RGBA")
-        img.save("output\\" + output)
+        output_path = os.path.join("output", output)
+        img.save(output_path)
         return "file_uploaded"
     return """<!doctype html>
         <title>Upload new File</title>
