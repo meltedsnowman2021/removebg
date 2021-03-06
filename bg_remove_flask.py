@@ -6,25 +6,27 @@ from PIL import Image
 # If image too big
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+import time
 
 app = Flask(__name__)
 
 input_path = '.\\input\\2.png'
 output_path = '.\\output\\test.rmbg.png'
 
-@app.route("/helloworld")
-def hello_world():
-  return "hello world"
+# @app.route("/helloworld")
+# def hello_world():
+#   return "hello world"
 
 @app.route("/removebg", methods = ['GET', 'POST'])
 def remove_bg():
     if request.method == "POST":
         file = request.files["file"]
-        file.save(input_path)
-        file = np.fromfile(input_path)
+        file.save(file.filename)
+        file = np.fromfile(file.filename)
         result = remove(file)
+        output = 'image-' + str(int(time.time())) + '.png' # Must be a .png
         img = Image.open(io.BytesIO(result)).convert("RGBA")
-        img.save(output_path)
+        img.save(output)
         return "file_uploaded"
     return """<!doctype html>
         <title>Upload new File</title>
@@ -35,3 +37,21 @@ def remove_bg():
         </form>"""
 print("hi")
 app.run(host = "0.0.0.0")
+
+
+# If file exists and is an acceptable file type
+        # Specified by ALLOWED_EXTENSIONS
+        if file and allowed_file(file.filename):
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(filename)             # Saves the uncropped image
+
+            input_path = filename
+            image_file_name = 'image-' + str(int(time.time())) + '.png' # Must be a .png
+            output_path = os.path.join(app.config['CROP_FOLDER'], image_file_name)
+
+            file = np.fromfile(input_path)
+            result = remove(file)
+            img = Image.open(io.BytesIO(result)).convert('RGBA')
+            img.save(output_path)           # Saves the cropped image
+
+            return redirect(url_for('uploaded_file', filename=image_file_name))
