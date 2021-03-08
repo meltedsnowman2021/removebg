@@ -23,10 +23,11 @@ def remove_bg():
     if request.method == "POST":
         file = request.files["file"]
         input_path = os.path.join("input", file.filename)
+        str_filename = file.filename
         file.save(input_path)
         file = np.fromfile(input_path)
         result = remove(file)
-        output = 'image-' + file.filename + str(int(time.time())) + '.png' # Must be a .png
+        output = 'image-' + str_filename + str(int(time.time())) + '.png' # Must be a .png
         img = Image.open(io.BytesIO(result)).convert("RGBA")
         output_path = os.path.join("output", output)
         img.save(output_path)
