@@ -8,7 +8,7 @@ from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 import time
 import os
-
+#testing connection for new computer
 app = Flask(__name__)
 
 input_path = '.\\input\\2.png'
