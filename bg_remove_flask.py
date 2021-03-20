@@ -14,9 +14,9 @@ app = Flask(__name__)
 input_path = '.\\input\\2.png'
 output_path = '.\\output\\test.rmbg.png'
 
-# @app.route("/helloworld")
-# def hello_world():
-#   return "hello world"
+@app.route("/helloworld")
+def hello_world():
+  return "hello world"
 
 @app.route("/removebg", methods = ['GET', 'POST'])
 def remove_bg():
