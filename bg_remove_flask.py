@@ -16,7 +16,7 @@ output_path = '.\\output\\test.rmbg.png'
 
 @app.route("/helloworld")
 def hello_world():
-  return "hello world"
+  return "gold"
 
 @app.route("/removebg", methods = ['GET', 'POST'])
 def remove_bg():
