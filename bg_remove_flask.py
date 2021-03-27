@@ -11,9 +11,6 @@ import os
 #testing connection for new computer
 app = Flask(__name__)
 
-input_path = '.\\input\\2.png'
-output_path = '.\\output\\test.rmbg.png'
-
 @app.route("/helloworld")
 def hello_world():
   return "gold"
@@ -31,7 +28,7 @@ def remove_bg():
         img = Image.open(io.BytesIO(result)).convert("RGBA")
         output_path = os.path.join("output", output)
         img.save(output_path)
-        return redirect(url_for("uploaded_file", filename = output_path))
+        return redirect(url_for("uploaded_file", filename = output))
     return """<!doctype html>
         <title>Upload new File</title>
         <h1>Upload new File</h1>
@@ -41,7 +38,7 @@ def remove_bg():
         </form>"""
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
-  return send_from_directory("", filename)
+  return send_from_directory("output", filename)
 
 app.run(host = "0.0.0.0")
 
