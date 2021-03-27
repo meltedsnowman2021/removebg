@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, url_for, redirect, send_from_directory
 from rembg.bg import remove
 import numpy as np
 import io
@@ -31,7 +31,7 @@ def remove_bg():
         img = Image.open(io.BytesIO(result)).convert("RGBA")
         output_path = os.path.join("output", output)
         img.save(output_path)
-        return "file_uploaded"
+        return redirect(url_for("uploaded_file", filename = output_path))
     return """<!doctype html>
         <title>Upload new File</title>
         <h1>Upload new File</h1>
@@ -39,7 +39,10 @@ def remove_bg():
           <input type=file name=file>
           <input type=submit value=Upload>
         </form>"""
-print("hi")
+@app.route("/uploads/<filename>")
+def uploaded_file(filename):
+  return send_from_directory("", filename)
+
 app.run(host = "0.0.0.0")
 
 
