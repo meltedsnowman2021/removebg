@@ -54,7 +54,7 @@ def flutter_removebg():
         filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(filename)             # Saves the uncropped image
         input_path = filename
-        image_file_name = 'image-' + str(int(time.time())) + '.png' _file_name)
+        image_file_name = 'image-' + str(int(time.time())) + '.png'
         file = np.fromfile(input_path)
         result = remove(file)
         img = Image.open(io.BytesIO(result)).convert('RGBA')
