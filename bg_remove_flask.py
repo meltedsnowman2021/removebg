@@ -40,22 +40,26 @@ def remove_bg():
 def uploaded_file(filename):
   return send_from_directory("output", filename)
 
+
+def allowed_file(filename):
+  extensions = ["png", "jpg", "jpeg"]
+  return filename.split(".")[-1] in extensions
+
+@app.route("/flutter/removebg", methods = ['GET', 'POST'])
+
+def flutter_removebg():
+  if request.method == 'POST' and 'file' in request.files:
+    file = request.files['file']
+    if file.filename != '' and (file and allowed_file(file.filename)):
+        filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        file.save(filename)             # Saves the uncropped image
+        input_path = filename
+        image_file_name = 'image-' + str(int(time.time())) + '.png' # Must be a .png
+        output_path = os.path.join(app.config['CROP_FOLDER'], image_file_name)
+        file = np.fromfile(input_path)
+        result = remove(file)
+        img = Image.open(io.BytesIO(result)).convert('RGBA')
+        img.save(output_path)           # Saves the cropped image
+        return url_for('uploaded_file', filename = image_file_name)
+
 app.run(host = "0.0.0.0")
-
-
-# If file exists and is an acceptable file type
-        # Specified by ALLOWED_EXTENSIONS
-        # if file and allowed_file(file.filename):
-        #     filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        #     file.save(filename)             # Saves the uncropped image
-
-        #     input_path = filename
-        #     image_file_name = 'image-' + str(int(time.time())) + '.png' # Must be a .png
-        #     output_path = os.path.join(app.config['CROP_FOLDER'], image_file_name)
-
-        #     file = np.fromfile(input_path)
-        #     result = remove(file)
-        #     img = Image.open(io.BytesIO(result)).convert('RGBA')
-        #     img.save(output_path)           # Saves the cropped image
-
-        #     return redirect(url_for('uploaded_file', filename=image_file_name))
