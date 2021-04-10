@@ -46,7 +46,6 @@ def allowed_file(filename):
   return filename.split(".")[-1] in extensions
 
 @app.route("/flutter/removebg", methods = ['GET', 'POST'])
-
 def flutter_removebg():
   if request.method == 'POST' and 'file' in request.files:
     file = request.files['file']
