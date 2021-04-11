@@ -64,3 +64,4 @@ def flutter_removebg():
         # return url_for('uploaded_file', filename = output)
 
 app.run(host = "0.0.0.0")
+# app.run(host = "127.0.0.1")
