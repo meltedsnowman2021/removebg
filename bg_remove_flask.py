@@ -60,8 +60,12 @@ def flutter_removebg():
         output = 'image-' + str_filename + str(int(time.time())) + '.png'
         output_path = os.path.join("output", output)
         img.save(output_path)           # Saves the cropped image
-        # print(url_for('uploaded_file', filename = output))
-        # return url_for('uploaded_file', filename = output)
+        print(url_for('uploaded_file', filename = output))
+        return url_for('uploaded_file', filename = output)
+    else:
+      return "bad_2"
+  else:
+    return "bad_1"
 
 app.run(host = "0.0.0.0")
 # app.run(host = "127.0.0.1")
