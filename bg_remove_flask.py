@@ -64,7 +64,7 @@ def flutter_removebg():
         file = np.fromfile(input_path)
         result = remove(file)
         img = Image.open(io.BytesIO(result)).convert('RGBA')
-        output = 'image-' + .split(".")[0] + str(int(time.time())) + '.png'
+        output = 'image-' + str_filename.split(".")[0] + str(int(time.time())) + '.png'
         output_path = os.path.join("output", output)
         img.save(output_path)           # Saves the cropped image
         print(url_for('uploaded_file', filename = output))
