@@ -24,7 +24,7 @@ def remove_bg():
         file.save(input_path)
         file = np.fromfile(input_path)
         result = remove(file)
-        output = 'image-' + str_filename.split(".").first + str(int(time.time())) + '.png' # Must be a .png
+        output = 'image-' + str_filename.split(".")[0] + str(int(time.time())) + '.png' # Must be a .png
         img = Image.open(io.BytesIO(result)).convert("RGBA")
         output_path = os.path.join("output", output)
         img.save(output_path)
