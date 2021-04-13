@@ -36,10 +36,15 @@ def remove_bg():
           <input type=file name=file>
           <input type=submit value=Upload>
         </form>"""
-        
+
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
   return send_from_directory("output", filename)
+
+@app.route("/inputs/<filename>")
+def uploaded_file(filename):
+  return send_from_directory("input", filename)
+
 
 def allowed_file(filename):
   extensions = ["png", "jpg", "jpeg"]
