@@ -19,7 +19,7 @@ def hello_world():
 def remove_bg():
     if request.method == "POST": 
         file = request.files["file"]
-        input_path = os.path.join("input", file.filename)
+        input_path = os.path.join("input", file.filename[-8:])
         str_filename = file.filename
         file.save(input_path)
         file = np.fromfile(input_path)
