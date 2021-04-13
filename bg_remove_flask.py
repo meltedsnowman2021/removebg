@@ -52,9 +52,14 @@ def flutter_removebg():
   if request.method == 'POST' and 'file' in request.files:
     file = request.files['file']
     if file.filename != '' and (file and allowed_file(file.filename)):
-        filename = os.path.join('input', file.filename)
-        file.save(filename)             # Saves the uncropped image
-        input_path = filename
+        #filename = os.path.join('input', file.filename)
+        #file.save(filename[-8:])             # Saves the uncropped image
+        #input_path = filename[-8:]
+
+        input_path = os.path.join("input", file.filename[-8:])
+        str_filename = file.filename[-8:]
+        file.save(input_path)
+                
         output = 'image-' + str(int(time.time())) + '.png'
         file = np.fromfile(input_path)
         result = remove(file)
