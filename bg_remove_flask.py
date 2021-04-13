@@ -39,7 +39,7 @@ def remove_bg():
 
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
-  return send_from_directory("ouput", filename)
+  return send_from_directory("input", filename)
 
 
 def allowed_file(filename):
