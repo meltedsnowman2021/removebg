@@ -20,7 +20,7 @@ def remove_bg():
     if request.method == "POST": 
         file = request.files["file"]
         input_path = os.path.join("input", file.filename[-8:])
-        str_filename = file.filename
+        str_filename = file.filename[-8:]
         file.save(input_path)
         file = np.fromfile(input_path)
         result = remove(file)
@@ -39,7 +39,7 @@ def remove_bg():
 
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
-  return send_from_directory("input", filename)
+  return send_from_directory("ouput", filename)
 
 
 def allowed_file(filename):
