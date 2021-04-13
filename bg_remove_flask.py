@@ -39,10 +39,6 @@ def remove_bg():
 
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
-  return send_from_directory("output", filename)
-
-@app.route("/inputs/<filename>")
-def inputs(filename):
   return send_from_directory("input", filename)
 
 
