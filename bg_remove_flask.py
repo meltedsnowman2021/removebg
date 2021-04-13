@@ -17,7 +17,7 @@ def hello_world():
 
 @app.route("/removebg", methods = ['GET', 'POST'])
 def remove_bg():
-    if request.method == "POST":
+    if request.method == "POST": 
         file = request.files["file"]
         input_path = os.path.join("input", file.filename)
         str_filename = file.filename
@@ -36,6 +36,7 @@ def remove_bg():
           <input type=file name=file>
           <input type=submit value=Upload>
         </form>"""
+        
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
   return send_from_directory("output", filename)
@@ -43,7 +44,6 @@ def uploaded_file(filename):
 def allowed_file(filename):
   extensions = ["png", "jpg", "jpeg"]
   return filename.split(".")[-1] in extensions
-
 
 @app.route("/flutter/removebg", methods = ['GET', 'POST'])
 def flutter_removebg():
